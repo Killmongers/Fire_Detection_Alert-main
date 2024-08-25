@@ -3,3 +3,6 @@ myenv/
 
 # Ignore Visual Studio Code settings directory
 .vscode/
+node_modules
+package-lock.json
+package.json
