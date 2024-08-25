@@ -1,0 +1,13 @@
+opencv-python
+pygame
+cvzone
+ultralytics
+flask  
+
+threading
+
+requests
+math
+
+
+
