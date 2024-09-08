@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Detection Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Fire Detection Dashboard</h1>
+        <nav>
+            <a href="#">Home</a> |
+            <a href="#">Settings</a> |
+            <a href="#">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Real-Time Status -->
+        <section id="real-time-status">
+            <h2>Real-Time Status</h2>
+            <div id="live-feed">
+                <!-- Placeholder for live video feed -->
+                <img id="live-video" src="{{ url_for('static', filename='img/live-feed-placeholder.jpg') }}" alt="Live Feed">
+            </div>
+            <div id="status-indicators">
+                <div class="status" id="sensor1">Sensor 1: <span id="sensor1-status">Normal</span></div>
+                <div class="status" id="sensor2">Sensor 2: <span id="sensor2-status">Alert</span></div>
+                <!-- More sensors can be added here -->
+            </div>
+        </section>
+
+        <!-- Sensor Data Overview -->
+        <section id="sensor-data">
+            <h2>Sensor Data Overview</h2>
+            <div id="sensor-list">
+                <!-- Placeholder for sensor list -->
+                <ul>
+                    <li>Sensor 1: Details</li>
+                    <li>Sensor 2: Details</li>
+                    <!-- More sensors can be listed here -->
+                </ul>
+            </div>
+            <div id="historical-data">
+                <h3>Temperature Trends</h3>
+                <!-- Placeholder for chart (e.g., Chart.js) -->
+                <canvas id="temperature-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- Alerts and Notifications -->
+        <section id="alerts-notifications">
+            <h2>Alerts and Notifications</h2>
+            <div id="recent-alerts">
+                <div class="alert">Alert 1: Fire detected in Zone A</div>
+                <div class="alert">Alert 2: Smoke detected in Zone B</div>
+                <!-- More alerts can be added here -->
+            </div>
+            <div id="notification-settings">
+                <h3>Notification Settings</h3>
+                <form>
+                    <label for="email">Email Notifications:</label>
+                    <input type="checkbox" id="email" name="email">
+                    <label for="sms">SMS Notifications:</label>
+                    <input type="checkbox" id="sms" name="sms">
+                    <button type="submit">Save Settings</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- System Health and Performance -->
+        <section id="system-health">
+         
+            <div id="performance-metrics">
+                <h3>Performance Metrics</h3>
+                <!-- Placeholder for performance metrics -->
+                <ul>
+                    <li>Uptime: 99.9%</li>
+                    <li>Response Time: 200ms</li>
+                    <!-- More metrics can be added here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Control and Management -->
+        <section id="control-management">
+            <h2>Control and Management</h2>
+            <div id="manual-overrides">
+                <h3>Manual Overrides</h3>
+                <button onclick="manualOverride()">Trigger Alarm</button>
+            </div>
+            <div id="maintenance-schedule">
+                <h3>Maintenance Schedule</h3>
+                <p>Last Maintenance: 2024-09-01</p>
+                <p>Next Maintenance: 2024-10-01</p>
+            </div>
+        </section>
+
+        <!-- User Management -->
+        <section id="user-management">
+            <h2>User Management</h2>
+            <div id="user-roles">
+                <h3>User Roles and Permissions</h3>
+                <!-- Placeholder for user roles and permissions -->
+                <ul>
+                    <li>Admin: Full access</li>
+                    <li>Maintenance: Limited access</li>
+                    <!-- More roles can be added here -->
+                </ul>
+            </div>
+            <div id="login-history">
+                <h3>Login History</h3>
+                <!-- Placeholder for login history -->
+                <ul>
+                    <li>User1: 2024-09-01 08:00</li>
+                    <li>User2: 2024-09-01 09:30</li>
+                    <!-- More login history can be added here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Reports and Analytics -->
+        <section id="reports-analytics">
+            <h2>Reports and Analytics</h2>
+            <div id="incident-reports">
+                <h3>Incident Reports</h3>
+                <!-- Placeholder for incident reports -->
+                <ul>
+                    <li>Incident 1: Fire in Zone A - 2024-09-01</li>
+                    <li>Incident 2: Smoke in Zone B - 2024-09-02</li>
+                    <!-- More reports can be added here -->
+                </ul>
+            </div>
+            <div id="analytics">
+                <h3>Analytics</h3>
+                <!-- Placeholder for analytics charts -->
+                <canvas id="analytics-chart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Fire Detection System</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/s.js') }}"></script>
+</body>
+</html>

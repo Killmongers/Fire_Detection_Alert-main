@@ -1,0 +1,1 @@
+FLASK_APP=flamealert.py FLASK_MYENV=development flask run

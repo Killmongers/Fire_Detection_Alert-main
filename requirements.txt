@@ -3,11 +3,11 @@ pygame
 cvzone
 ultralytics
 flask  
-
+pymongo
 threading
-
 requests
 math
+passlib
 
 
 

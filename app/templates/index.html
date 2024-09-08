@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% block title %}Home {% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/pricing.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+
+    <nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary bg-body-tertiary ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#home"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features"><i class="fas fa-cogs"></i>Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing"><i class="fas fa-exclamation-triangle"></i> Subscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#support"><i class="fas fa-headset"></i> Support</a>
+                    </li>
+                </ul>
+            
+                <button class="btn btn-outline-success" onclick="navigateToLogin()">
+                  <i class="fas fa-user"></i>
+                  Signin
+              </button>
+              
+            </div>
+        </div>
+    </nav>
+
+
+    <div id="home" class="section">
+    <div class="container mt-5">
+        <div id="carouselExampleCaptions" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="d-block w-100 text-center text-white" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <h1 class="display-4">AlertFlame works the way you do</h1>
+                        <p class="lead">From a one-click installation to thousands possibilities for your set-up, AlertFlame evolves with your needs. Home, small office, large shop, outdoor organization... We got you covered.</p>
+                        <button type="button" class="btn btn-info">Subscribe</button>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="d-block w-100 text-center text-white" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <h1 class="display-4">AlertFlame works the way you do</h1>
+                        <p class="lead">From a one-click installation to thousands possibilities for your set-up, AlertFlame evolves with your needs. Home, small office, large shop, outdoor organization... We got you covered.</p>
+                        <button type="button" class="btn btn-info">Subscribe</button>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="d-block w-100 text-center text-white" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <h1 class="display-4">AlertFlame works the way you do</h1>
+                        <p class="lead">From a one-click installation to thousands possibilities for your set-up, AlertFlame evolves with your needs. Home, small office, large shop, outdoor organization... We got you covered.</p>
+                        <button type="button" class="btn btn-info">Subscribe</button>
+                    </div>
+                </div>
+                
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div id="features" class="section">
+    <div class="container mt-5">
+
+        
+        <div class="b-example-divider"></div>
+
+        <div class="container px-4 py-5" id="hanging-icons">
+            <header>
+        
+      
+                <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+                  <h1 class="display-4 fw-normal text-body-emphasis">Features</h1>
+                  <p class="fs-5 text-body-secondary">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+                </div>
+            </header>
+          <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+              <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <i class="bi bi-toggle-on" style="font-size: 2em;"></i>
+              </div>
+              <div>
+                <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <a href="#" class="btn btn-primary">
+                  Primary button
+                </a>
+              </div>
+            </div>
+            <div class="col d-flex align-items-start">
+              <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <i class="bi bi-cpu" style="font-size: 1.5em;"></i>
+              </div>
+              <div>
+                <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <a href="#" class="btn btn-primary">
+                  Primary button
+                </a>
+              </div>
+            </div>
+            <div class="col d-flex align-items-start">
+              <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <i class="bi bi-tools" style="font-size: 1.5em;"></i>
+              </div>
+              <div>
+                <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <a href="#" class="btn btn-primary">
+                  Primary button
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="pricing" class="section">
+    <div class="container mt-5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+            <symbol id="check2" viewBox="0 0 16 16">
+              <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </symbol>
+            <symbol id="circle-half" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+            </symbol>
+            <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+              <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+              <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+            </symbol>
+            <symbol id="sun-fill" viewBox="0 0 16 16">
+              <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+            </symbol>
+          </svg>
+      
+         
+          
+      <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="check" viewBox="0 0 16 16">
+          <title>Check</title>
+          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+        </symbol>
+      </svg>
+      
+      <div class="container py-3">
+        <header>
+        
+      
+          <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis">Pricing</h1>
+            <p class="fs-5 text-body-secondary">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+          </div>
+        </header>
+      
+        <main>
+          <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+              <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                  <h4 class="my-0 fw-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                  <h4 class="my-0 fw-normal">Pro</h4>
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>20 users included</li>
+                    <li>10 GB of storage</li>
+                    <li>Priority email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                  <h4 class="my-0 fw-normal">Enterprise</h4>
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title pricing-card-title">$29<small class="text-body-secondary fw-light">/mo</small></h1>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>30 users included</li>
+                    <li>15 GB of storage</li>
+                    <li>Phone and email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <h2 class="display-6 text-center mb-4">Compare plans</h2>
+      
+          <div class="table-responsive">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th style="width: 34%;"></th>
+                  <th style="width: 22%;">Free</th>
+                  <th style="width: 22%;">Pro</th>
+                  <th style="width: 22%;">Enterprise</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="text-start">Public</th>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-start">Private</th>
+                  <td></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                </tr>
+              </tbody>
+      
+              <tbody>
+                <tr>
+                  <th scope="row" class="text-start">Permissions</th>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-start">Sharing</th>
+                  <td></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-start">Unlimited members</th>
+                  <td></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-start">Extra security</th>
+                  <td></td>
+                  <td></td>
+                  <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+        
+    </div>
+</div>
+
+
+
+
+<div id="support" class="section">
+    <div class="container mt-5">
+        
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/button.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+ 

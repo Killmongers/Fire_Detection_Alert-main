@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary bg-body-tertiary ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="livefeed.html"><i class="fas fa-video"></i> Live Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-film"></i> Playback</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Yesterday</a>
+                        <a href="#">Last Week</a>
+                        <a href="#">Custom Range</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-bell"></i> Alerts</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Recent Alerts</a>
+                        <a href="#">Alert History</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#support"><i class="fas fa-headset"></i> Support</a>
+                </li>
+            </ul>
+        
+
+            
+            <button class="btn btn-outline-success" onclick="navigateToProfile()">
+             
+                <i class="fas fa-user"></i>
+                {% if username %}
+                    {{ username }}
+                {% endif %}
+            </button>
+            
+                    <!-- <li class="nav-item">
+                        <i class="fas fa-sign-in-alt"></i> <a class="nav-link" href="{{url_for('logout')}}" >Logout</a>
+                    </li>
+                     -->
+                
+            </div>
+        </div>
+    </nav> 
+    
+    <div class="container">
+        {% if username %}
+            <h1>Hello, {{ username }}!</h1>
+            
+        {% else %}
+            <h1>Welcome to the Home Page!</h1>
+            <p>You are not logged in. <a href="{{ url_for('login') }}">Login</a></p>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='js/button.js') }}"></script>
+
+{% endblock %}

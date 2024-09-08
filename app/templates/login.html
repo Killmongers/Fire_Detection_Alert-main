@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/sign-in.css') }}" rel="stylesheet">
+<div container>
+  <div class="wrapper">
+    <div class="title-text">
+      <div class="title login">Login Form</div>
+      <div class="title signup">Signup Form</div>
+    </div>
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Login</label>
+        <label for="signup" class="slide signup">Signup</label>
+        <div class="slider-tab"></div>
+      </div>
+      <div class="form-inner">
+    
+        
+        <!-- Login Form -->
+        <form method="POST" action="{{ url_for('login') }}" class="login">
+          <p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <ul class="flashes">
+                {% for category, message in messages %}
+                  {% if  category == 'login_error' %}
+                    <li class="{{ category }}">{{ message }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% endwith %}
+          </p>
+          <div class="field">
+            <input type="text" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <input type="password" name="password" placeholder="Password" required>
+          </div>
+          <div class="pass-link"><a href="#">Forgot password?</a></div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">Not a member? <a href="{{ url_for('signup') }}">Signup now</a></div>
+       
+        
+        </form>
+     
+
+        <!-- Signup Form -->
+     
+        <form method="POST" action="{{ url_for('signup') }}" class="signup">
+          <p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <ul class="flashes">
+                {% for category, message in messages %}
+                  {% if category == 'signup_success' or category == 'signup_error' %}
+                    <li class="{{ category }}">{{ message }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% endwith %}
+          </p>
+          <div class="field">
+            <input type="text" name="username" placeholder="Username" required>
+          </div>
+          <div class="field">
+            <input type="text" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+          </div>
+          <div class="field">
+            <input type="password" name="password" placeholder="Password" required>
+          </div>
+          <p class="error error--hidden"></p>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Signup">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/sign-in.js') }}"></script>
+{% endblock %}

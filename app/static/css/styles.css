@@ -1,0 +1,29 @@
+.carousel-item {
+   
+   height: 400px;}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text */
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+.section {
+    padding: 20px; /* Maintain padding around content */
+    background-color: #f4f4f4; /* Background color */
+    border-bottom: 1px solid #ddd; /* Border at the bottom for separation */
+    transition: transform 0.3s ease; /* Smooth transition effect for transformations */
+    margin-top: 60px; /* Space above the section */
+}
+
+/* Specific styles based on ID */
+#home.section {
+    background-image: url('city-night.gif');
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-item p {
+    margin-top: 50px; /* You might want to use a specific unit like px, em, etc. */
+}
+
+

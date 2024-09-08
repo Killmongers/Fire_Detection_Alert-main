@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.status {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+}
+
+.alert {
+    padding: 10px;
+    border: 1px solid red;
+    background-color: #fdd;
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#live-video {
+    width: 100%;
+    max-width: 640px;
+}
+
+canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
