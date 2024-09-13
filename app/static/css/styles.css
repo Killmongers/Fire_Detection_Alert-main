@@ -27,3 +27,40 @@
 }
 
 
+/* Ensuring proper letter spacing for modal and other elements */
+.modal-body,
+.modal-title,
+.form-control {
+    letter-spacing: normal; /* Adjust if needed */
+}
+
+/* Ensure proper spacing in the camera list and feed */
+.camera-list ul,
+.camera-feeds {
+    font-family: Arial, sans-serif; /* Set a clean, readable font */
+    letter-spacing: normal; /* Adjust if needed */
+}
+
+/* Additional styling for the camera list and feeds */
+.camera-list {
+    margin-right: 20px;
+}
+
+.camera-feeds {
+    margin-left: 20px;
+}
+
+/* Styling for the modal header and body */
+.modal-header {
+    font-family: Arial, sans-serif;
+}
+
+.modal-title {
+    letter-spacing: normal; /* Adjust if needed */
+}
+
+.modal-body {
+    font-family: Arial, sans-serif;
+}
+
+

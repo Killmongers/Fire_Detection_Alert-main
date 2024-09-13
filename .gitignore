@@ -1,8 +1,5 @@
 # Ignore virtual environment directory
-myenv/
+env/
 
 # Ignore Visual Studio Code settings directory
-.vscode/
-node_modules
-package-lock.json
-package.json
+__pycache__/
