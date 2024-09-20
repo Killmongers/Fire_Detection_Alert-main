@@ -1,5 +1,5 @@
 # Ignore virtual environment directory
-env/
+myenv/
 
 # Ignore Visual Studio Code settings directory
 __pycache__/

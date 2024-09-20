@@ -3,11 +3,8 @@ pygame
 cvzone
 ultralytics
 flask  
-pymongo
-threading
 requests
-math
 passlib
-
-
-
+flask_pymongo
+yagmail
+CORS

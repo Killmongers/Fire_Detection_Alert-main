@@ -1,71 +1,27 @@
-from flask import Flask, Response, render_template, flash, redirect, session, url_for, request,jsonify
+from flask import Flask, Response, render_template, flash, redirect, session, url_for, request, jsonify
 from passlib.hash import pbkdf2_sha256
 import uuid
 from . import app, db  # Ensure you have a proper module import structure
-# from .fire_detection import gen_frames  # Ensure gen_frames is correctly imported
-from werkzeug.security import generate_password_hash, check_password_hash  # Not used in this code snippet
 from bson import ObjectId
 import threading
 import pygame
 import yagmail
 from app.video_feed import gen_frames
+from datetime import datetime
 
 
 
+@app.route('/pause')
+def pause_video():
+    global video_paused
+    video_paused = True
+    return "Video paused"
 
-
-# Initialize Pygame for playing sound
-pygame.init()
-pygame.mixer.init()
-
-# Initialize variables
-alarm_playing = False
-email_sent = False  # Flag to track if the email has been sent
-ip_camera_url = None
-
-# Function to play alarm sound
-def play_alarm_sound_function():
-    global alarm_playing
-    if not alarm_playing:
-        alarm_playing = True
-        pygame.mixer.music.load('static/fire_alarm.mp3')  # Path to your alarm sound file
-        pygame.mixer.music.play()
-        print("Fire alarm started")
-
-# Function to stop alarm sound
-def stop_alarm_sound_function():
-    global alarm_playing
-    if alarm_playing:
-        pygame.mixer.music.stop()
-        alarm_playing = False
-        print("Fire alarm stopped")
-
-# # Function to send email
-# def send_mail_function():
-#     recipientmail = "moolyaswastik48@gmail.com"
-#     try:
-#         yag = yagmail.SMTP("6+", 'your_password_here')  # Replace with your email and password
-#         yag.send(recipientmail, "Warning: Fire accident has been reported")
-#         print(f"Alert mail sent successfully to {recipientmail}")
-#     except Exception as e:
-#         print(f"Error sending email: {e}")
-
-def send_mail_function():
-    # Check if the user is logged in
-    if 'email' in session:
-        recipientmail = session['email']  # Get the logged-in user's email from the session
-        try:
-            yag = yagmail.SMTP("moolyaswastik48@gmail.com", 'htjf errw gzau ktlg')  # Replace with your email and password
-            yag.send(recipientmail, "Warning: Fire accident has been reported")
-            print(f"Alert mail sent successfully to {recipientmail}")
-        except Exception as e:
-            print(f"Error sending email: {e}")
-    else:
-        print("No user is logged in, unable to send email.")
-
-
-
-
+@app.route('/start')
+def start_video():
+    global video_paused
+    video_paused = False
+    return "Video started"
 
 @app.route('/')
 def index():
@@ -75,23 +31,42 @@ def index():
 
 @app.route('/video_feed/<camera_id>')
 def video_feed(camera_id):
-    # Logic to use camera_id if necessary
-    return Response(gen_frames(),
+    user_id = session.get('user_id')
+    user_email = session.get('email')
+
+    # Ensure user is authenticated
+    if not user_id or not user_email:
+        return "User not authenticated", 403
+
+    # Fetch camera details from the database
+    camera = db.cameras.find_one({'_id': ObjectId(camera_id), 'user_id': user_id})
+    
+    if camera is None:
+        return "Camera not found or access denied", 404
+
+    ip_address = camera.get('ip_address')  # Adjust this key based on your database schema
+
+    return Response(gen_frames(ip_address, camera['name'], user_id, user_email), 
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 
 @app.route('/profile')
 def dashboard():
     return render_template('dashboard.html')
 
+
 @app.route('/home')
 def home():
+    print(session)
     
-    if 'username' in session:
+    if 'username' in session and 'email' in session:
         return render_template('home.html', username=session['username'])
+    
     return redirect(url_for('login'))
 
-@app.route('/login', methods=['GET', 'POST'])
+
+@app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -99,15 +74,90 @@ def login():
 
         user = db.users.find_one({'email': email})
         if user and pbkdf2_sha256.verify(password, user['password']):
-            session['username'] = user['username']  # Store username in session
+            session['username'] = user['username']
+            session['user_id'] = str(user['_id'])  # Ensure user ID is converted to string
             session['email'] = user['email']
+            
+          
             flash('Login successful!', 'login_success')
-            return redirect(url_for('home'))  
+            return redirect(url_for('home'))
         else:
             flash('Invalid email or password.', 'login_error')
             return redirect(url_for('login'))
     
     return render_template('login.html')
+
+@app.route('/send-alert', methods=['POST'])
+def send_alert():
+    # Get the request data
+    request_data = request.get_json()
+    print("Request data:", request_data)  # Debugging: Print request data
+    
+    # Extract user data and camera_id from the request
+    user_id = request_data.get('user_id')
+    email = request_data.get('email')
+    camera_name= request_data.get('camera_name')
+    
+    if not camera_name or not user_id:
+        return jsonify({'status': 'error', 'message': 'Camera ID or User ID missing'}), 400
+    
+    # Fetch the camera for the given user
+    camera = db.cameras.find_one({"name": camera_name.strip(), "user_id": user_id}) 
+
+    
+    if not camera:
+        return jsonify({'status': 'error', 'message': 'Camera not found for this user'}), 404
+
+
+
+    # Add the alert to MongoDB
+    alert_id = db.alerts.insert_one({
+        'user_id': user_id,
+        'timestamp': datetime.now(),
+        'message': 'Fire alert triggered',
+        'email': email,
+        'camera_name': camera['name']
+    }).inserted_id
+    send_mail_function(email, camera['name'])
+
+    return jsonify({'status': 'Alert added', 'alert_id': str(alert_id)})
+
+
+
+def send_mail_function(recipientmail, camera_name=None):
+    print(f"Preparing to send email to {recipientmail}")
+    subject = "Fire Detection Alert"
+    body = f"Warning: A fire accident has been reported by camera {camera_name}. Please check immediately." if camera_name else "Warning: A fire accident has been reported. Please check immediately."
+    try:
+        yag = yagmail.SMTP("your-email@gmail.com", 'your-app-password')  # Replace with correct credentials
+        yag.send(to=recipientmail, subject=subject, contents=body)
+        print(f"Email successfully sent to {recipientmail}")
+    except Exception as e:
+        print(f"Failed to send email to {recipientmail}. Error: {e}")
+
+@app.route('/get_alerts', methods=['GET'])
+def get_alerts():
+    if 'user_id' not in session:
+        return jsonify({'status': 'error', 'message': 'User not logged in'}), 403
+
+    user_id = session['user_id']
+    alerts = list(db.alerts.find({'user_id': user_id}, {'_id': 1, 'timestamp': 1, 'message': 1.'camera_name':1}))
+    for alert in alerts:
+        alert['_id'] = str(alert['_id'])
+    return jsonify(alerts)
+
+def remove_alert(alert_id):
+    if 'user_id' not in session:
+        return jsonify({'status': 'error', 'message': 'User not logged in'}), 403
+
+    user_id = session['user_id']
+    result = db.alerts.delete_one({'_id': ObjectId(alert_id), 'user_id': user_id})
+
+    if result.deleted_count == 0:
+        return jsonify({'status': 'error', 'message': 'Alert not found'}), 404
+
+    return jsonify({'status': 'Alert removed successfully'})
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -137,15 +187,15 @@ def signup():
         }
 
         db.users.insert_one(new_user)
-
-        
         return redirect(url_for('login'))
-  
+
     return render_template('signup.html')  # Render signup page for GET requests
+
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)  # Remove the username from session
+    session.pop('user_id', None)  # Remove user ID from session
     session.pop('email', None) 
     flash('You have been logged out.', 'logout_success')
     return redirect(url_for('index'))
@@ -154,6 +204,9 @@ def logout():
 @app.route('/add_camera', methods=['POST'])
 def add_camera():
     global ip_camera_url
+    if 'user_id' not in session:
+        return jsonify({'status': 'error', 'message': 'User not logged in'}), 403
+
     data = request.form
     name = data.get('name')
     ip_address = data.get('ip_address')
@@ -161,10 +214,12 @@ def add_camera():
     if not ip_address:
         return jsonify({'status': 'error', 'message': 'IP address is required'}), 400
 
-    ip_camera_url = f'rtsp://{ip_address}/stream'
-    
-    # Store camera details in MongoDB
+    user_id = session['user_id']  # Get the user ID from the session
+    ip_camera_url = ip_address
+
+    # Store camera details in MongoDB associated with the user's ID
     camera_id = db.cameras.insert_one({
+        'user_id': user_id,  # Associate the camera with the user
         'name': name,
         'ip_address': ip_address
     }).inserted_id
@@ -176,9 +231,13 @@ def add_camera():
 @app.route('/remove_camera/<camera_id>', methods=['POST'])
 def remove_camera(camera_id):
     global ip_camera_url
+    if 'user_id' not in session:
+        return jsonify({'status': 'error', 'message': 'User not logged in'}), 403
 
-    # Remove camera details from MongoDB
-    result = db.cameras.delete_one({'_id': ObjectId(camera_id)})
+    user_id = session['user_id']  # Get the user ID from the session
+
+    # Remove camera details from MongoDB associated with the user's ID
+    result = db.cameras.delete_one({'_id': ObjectId(camera_id), 'user_id': user_id})
 
     if result.deleted_count == 0:
         return jsonify({'status': 'error', 'message': 'Camera not found'}), 404
@@ -189,11 +248,17 @@ def remove_camera(camera_id):
 
     return jsonify({'status': 'Camera removed successfully'})
 
+
 @app.route('/get_cameras', methods=['GET'])
-def get_cameras(): 
-    cameras = list(db.cameras.find({}, {'_id': 1, 'name': 1, 'ip_address': 1}))
+def get_cameras():
+    if 'user_id' not in session:
+        return jsonify({'status': 'error', 'message': 'User not logged in'}), 403
+
+    user_id = session['user_id']
+
+    cameras = list(db.cameras.find({'user_id': user_id}, {'_id': 1, 'name': 1, 'ip_address': 1}))
     for camera in cameras:
-        camera['_id'] = str(camera['_id'])  # Convert ObjectId to string for JSON serialization
+        camera['_id'] = str(camera['_id'])
     return jsonify(cameras)
 
 @app.route('/get_camera_url', methods=['GET'])

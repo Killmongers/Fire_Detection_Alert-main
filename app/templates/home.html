@@ -4,7 +4,7 @@
 {% block content %}
 
 <link href="{{ url_for('static', filename='css/camera.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary bg-body-tertiary ">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -74,14 +74,17 @@
                     <ul id="camera-list" class="list-unstyled"></ul>
                 </div>
                 <div class="alert-list">
-                    <h2>Alerts</h2>
+                    <h2>Alerts</h2> 
+                    <div id="alert-list-container" style="max-height: 300px; overflow-y: auto;">
                     <ul id="alert-list" class="list-unstyled"></ul>
                 </div>
+            </div>  
             </div>
             <div class="col-md-8">
                 <h2>Camera Feeds</h2>
                 <div id="camera-feed-container" class="camera-feed-container"></div>
-            </div>
+                
+             </div>
         </div>
     </div>
 
@@ -117,6 +120,15 @@
     
 
     </div>
+    <script>
+        // Embed session data into JavaScript
+        var currentUser = {
+            userId: "{{ session['user_id'] }}",
+            email: "{{ session['email'] }}",
+            username: "{{ session['username'] }}"
+        };
+    </script>
+
     <script src="{{ url_for('static', filename='js/button.js') }}"></script>
     <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
