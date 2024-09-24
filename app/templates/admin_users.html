@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Manage Users</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                
+                <td>
+                    <a href="{{ url_for('show_user', user_id=user._id) }}" class="btn btn-info btn-sm">Show</a>
+                    <a href="{{ url_for('edit_user', user_id=user._id) }}" class="btn btn-warning btn-sm">Update</a>
+                    <form action="{{ url_for('delete_user', user_id=user._id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

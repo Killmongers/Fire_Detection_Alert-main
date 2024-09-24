@@ -173,6 +173,8 @@ function showFormFeedback(message) {
     feedback.className = 'alert alert-danger';
 }
 
+
+
 function removeCamera(cameraId) {
     fetch(`/remove_camera/${cameraId}`, {
         method: 'POST'

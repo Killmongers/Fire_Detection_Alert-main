@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} Alerts log{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Manage Alerts</h1>
+    
+    <!-- Scrollable container for the alerts table -->
+    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Owner</th>
+                    <th>Camera Name</th>
+                    <th>Timestamp</th>
+                    <th>Message</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alerts %}
+                <tr>
+                    <td>{{alert.owner_username}}</td>
+                    <td>{{ alert.camera_name }}</td>
+                    <td>{{ alert.timestamp }}</td>
+                    <td>{{ alert.message }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_alert', alert_id=alert._id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

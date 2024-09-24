@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Manage Cameras{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Manage Cameras</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Camera Name</th>
+                <th>IP Address</th>
+                <th>Owner</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for camera in cameras %}
+            <tr>
+                <form action="{{ url_for('update_camera', camera_id=camera._id) }}" method="POST">
+                    <td>
+                        <input type="text" name="name" class="form-control" value="{{ camera.name }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="ip_address" class="form-control" value="{{ camera.ip_address }}" required>
+                    </td>
+                    <td>
+                        {{ camera.owner_username }} <!-- Display the owner's username here -->
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </td>
+                </form>
+                <td>
+                    <form action="{{ url_for('delete_camera', camera_id=camera._id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

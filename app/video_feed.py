@@ -11,7 +11,7 @@ import requests
 
 
 model = YOLO('best.pt')
-classnames = ['fire', 'smoke']
+classnames = ['fire']
 
 alarm_playing = False
 fire_detected = False
@@ -47,7 +47,7 @@ def gen_frames(ip_camera_url, camera_name, user_id, user_email):
 
     while True:
         try:
-            vid = cv2.VideoCapture(0) 
+            vid = cv2.VideoCapture(ip_camera_url) 
             if not vid.isOpened():
                 time.sleep(10)
                 continue

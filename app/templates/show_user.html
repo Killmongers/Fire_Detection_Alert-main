@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>User Details</h1>
+    {% for key, value in user.items() %}
+        {% if key not in ['_id', 'password','is_admin'] %}
+            <p><strong>{{ key.capitalize() }}:</strong> {{ value }}</p>
+        {% endif %}
+    {% endfor %}
+    
+    <a href="{{ url_for('admin_users') }}" class="btn btn-secondary">Back to Users</a>
+</div>
+{% endblock %}
